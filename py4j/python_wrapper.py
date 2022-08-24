@@ -161,7 +161,15 @@ class PythonJavaBridge(object):
     
 
     def Close_gateway(self):
-        gateway.shutdown_callback_server()
+        
+        """ Close the callback server
+        """
+        try:
+            gateway.shutdown_callback_server()
+            logging.info("Success")
+        except Exception as e:
+            logging.error(f"{e}")
+            raise SpeechProcessError(e)
 
 
     @staticmethod
@@ -181,7 +189,7 @@ class PythonJavaBridge(object):
         try:
             # obj = PythonSpeechWrapper()
             result = speech_process.fillDataForSpeechRequest()
-            if result is None:
+            if result=="Failed":
                 logging.error("Failed to get requested input")
                 que1.put( enums.FAILURE.name)
             logging.info("Success")
@@ -202,7 +210,7 @@ class PythonJavaBridge(object):
         """
         try:
             str=speech_process.enterFirstInput()
-            if str is None:
+            if str =="Failed":
                 logging.error("Failed to get requested input")
                 que5.put( enums.FAILURE.name)
             logging.info("Success")

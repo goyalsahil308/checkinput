@@ -197,17 +197,20 @@ class ProcessUserInput:
         Returns:
             String: input
         """
-        que5=queue.Queue()
-        t5=Thread(target=self.g_py_obj.take_input_from_java,args=(que5,))
-        t5.start()
-        t5.join()
-        y=que5.get()
-        if y==enums.FAILURE.name:
+        try:
+            que5=queue.Queue()
+            t5=Thread(target=self.g_py_obj.take_input_from_java,args=(que5,))
+            t5.start()
+            t5.join()
+            first_input=que5.get()
+            if first_input==enums.FAILURE.name:
                 logging.info("Success") 
                 return enums.FAILURE.name
-        logging.info("Success")
-        return y
-
+            logging.info("Success")
+            return first_input
+        except Exception as e:
+            logging.error(f"{e}")
+            raise SpeechProcessError(e)
 
     def request_user_for_input(self):
         """calls request_user_input_from_java from python_wrapper module for additional input from user
@@ -225,13 +228,13 @@ class ProcessUserInput:
             t1=Thread(target=self.g_py_obj.request_user_input_from_java,args=(que1,))
             t1.start()
             t1.join()
-            y=que1.get()
+            second_input=que1.get()
     
-            if y==enums.FAILURE.name:
+            if second_input==enums.FAILURE.name:
                 logging.info("Success") 
                 return enums.FAILURE.name
             logging.info("Success")
-            return y
+            return second_input
         
         except Exception as e:
             logging.error(f"{e}")
@@ -370,6 +373,7 @@ class ProcessUserInput:
             raise SpeechProcessError(e)
         finally:
               self.g_py_obj.Close_gateway()
+              
     
     def run(self, type_: str):
         """Multiprocessing tasks based upon `type` and then process the user input `_input`

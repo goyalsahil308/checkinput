@@ -6,6 +6,7 @@ import java.util.logging.*;
 import java.util.ArrayList;
 
 public class AppClass {
+
     Logger logger = Logger.getLogger(AppClass.class.getName());
     public String fillDataForSpeechRequest() throws IOException {
     
@@ -14,7 +15,7 @@ public class AppClass {
       *  Returns: String
          Takes input and return it to python
       */
-
+    try{
         logger.setLevel(Level.INFO);
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Insufficient input\nEnter input again : ");  
@@ -22,6 +23,11 @@ public class AppClass {
         logger.log(Level.INFO, "Success");
         return str;
         }
+    catch(Exception e){
+        System.out.println(e);
+        return "Failed";
+    }
+    }
 
     public String enterFirstInput() throws IOException{
 
@@ -29,14 +35,18 @@ public class AppClass {
       *  Returns: String
          Takes first input and return it to python
       */
-
+      try{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Enter input :");  
         String str = br.readLine();
         logger.log(Level.INFO, "Success");
-        return str;        
+        return str;  
     }
-    
+       catch(Exception e)
+       {
+        System.out.println(e);
+        return "Failed";
+       }}    
 
     public int updateNewWordsCloud(ArrayList<Object> b) { 
 
