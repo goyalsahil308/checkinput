@@ -192,16 +192,24 @@ class PythonJavaBridge(object):
     
     @staticmethod
     def take_input_from_java(que5):
-     try:
-        str=speech_process.enterFirstInput()
-        if str is None:
+        """Takes input as string from java side 
+
+        Args:
+            que5 (que): queue is empty this function will put input String in it
+
+        Raises:
+            SpeechProcessError: _description_
+        """
+        try:
+            str=speech_process.enterFirstInput()
+            if str is None:
                 logging.error("Failed to get requested input")
                 que5.put( enums.FAILURE.name)
-        logging.info("Success")
-        que5.put(str)
-     except Exception as e:
-        logging.error(f"{e}")
-        raise SpeechProcessError(e)
+            logging.info("Success")
+            que5.put(str)
+        except Exception as e:
+            logging.error(f"{e}")
+            raise SpeechProcessError(e)
 
     @staticmethod
     def update_new_words_to_analysis(new_user_words: list,que2):
