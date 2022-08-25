@@ -8,9 +8,28 @@ import java.util.ArrayList;
 public class AppClass {
 
     Logger logger = Logger.getLogger(AppClass.class.getName());
+
+    public String enterFirstInput() throws IOException{
+
+        /**   Args   : Null
+           *  Returns: String
+              Takes first input and return it to python
+           */
+           try{
+             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             System.out.print("Enter input :");  
+             String str = br.readLine();
+             logger.log(Level.INFO, "Success");
+             return str;  
+         }
+            catch(Exception e)
+            {
+             System.out.println(e);
+             return "Failed";
+            }} 
+            
     public String fillDataForSpeechRequest() throws IOException {
     
-
      /** Args   : Null
       *  Returns: String
          Takes input and return it to python
@@ -29,24 +48,7 @@ public class AppClass {
     }
     }
 
-    public String enterFirstInput() throws IOException{
-
-   /**   Args   : Null
-      *  Returns: String
-         Takes first input and return it to python
-      */
-      try{
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Enter input :");  
-        String str = br.readLine();
-        logger.log(Level.INFO, "Success");
-        return str;  
-    }
-       catch(Exception e)
-       {
-        System.out.println(e);
-        return "Failed";
-       }}    
+   
 
     public int updateNewWordsCloud(ArrayList<Object> b) { 
 

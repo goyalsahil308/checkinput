@@ -27,7 +27,7 @@ if __name__ == "__main__":
             ui = obj.get_user_input("text")
             print(ui)
     # dl = obj.delete_local_db_rows("supply_add_ons", "pizza")
-            print("Total execution time : %s " %(time() - start_time_))
+            # print("Total execution time : %s " %(time() - start_time_))
         else:
             print('''Wrong input 
 Please choose from selected options''')

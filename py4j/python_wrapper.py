@@ -189,7 +189,7 @@ class PythonJavaBridge(object):
         try:
             # obj = PythonSpeechWrapper()
             result = speech_process.fillDataForSpeechRequest()
-            if result=="Failed":
+            if result=="Failed" or str==None:
                 logging.error("Failed to get requested input")
                 que1.put( enums.FAILURE.name)
             logging.info("Success")
@@ -210,7 +210,7 @@ class PythonJavaBridge(object):
         """
         try:
             str=speech_process.enterFirstInput()
-            if str =="Failed":
+            if str =="Failed" or str==None :
                 logging.error("Failed to get requested input")
                 que5.put( enums.FAILURE.name)
             logging.info("Success")
